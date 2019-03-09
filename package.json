@@ -6,7 +6,7 @@
   "scripts": {
     "client": "webpack-dev-server --config ./webpack/webpack.config.js --env development",
     "start": "concurrently \"npm run client\" \"npm run server\"",
-    "server": "nodemon -r @babel/register -r @babel/polyfill -r dotenv/config server/development.js",
+    "server": "nodemon -r @babel/register -r @babel/polyfill server/index.js",
     "lint": "eslint ./app",
     "test": "jest -i --verbose --coverage",
     "build": "npm run client:build && npm run server:build",
@@ -70,7 +70,6 @@
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "path": "0.12.7",
     "prettier": "1.16.4",
-    "react-hot-loader": "4.7.1",
     "redux-devtools-extension": "2.13.8",
     "regenerator-runtime": "0.13.1",
     "sass-loader": "7.1.0",
@@ -83,5 +82,45 @@
     "webpack-merge": "4.2.1",
     "webpack-node-externals": "1.7.2",
     "webpack-visualizer-plugin": "0.1.11"
-  }
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.2.5",
+    "@material-ui/core": "3.9.2",
+    "axios": "0.18.0",
+    "body-parser": "1.18.3",
+    "chalk": "2.4.2",
+    "classnames": "2.2.6",
+    "compression": "1.7.3",
+    "concurrently": "4.1.0",
+    "cors": "2.8.5",
+    "date-fns": "2.0.0-alpha.27",
+    "dotenv": "6.2.0",
+    "express": "4.16.4",
+    "is-empty": "1.2.0",
+    "lodash": "4.17.11",
+    "mongoose": "5.4.17",
+    "morgan": "1.9.1",
+    "prop-types": "15.7.2",
+    "ramda": "0.26.1",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-hot-loader": "4.7.1",
+    "react-loadable": "5.5.0",
+    "react-redux": "6.0.1",
+    "react-router-dom": "4.3.1",
+    "redux": "4.0.1",
+    "redux-actions": "2.6.4",
+    "redux-form": "8.1.0",
+    "redux-form-material-ui": "5.0.0-beta.3",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0",
+    "typeface-roboto": "0.0.54"
+  },
+  "browserslist": [
+    "last 2 versions",
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

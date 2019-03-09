@@ -4,17 +4,21 @@ module.exports = {
       '@babel/preset-env',
       {
         useBuiltIns: 'usage',
-        modules: false,
-        targets: {
-          node: 'current',
-        },
       },
     ],
     '@babel/preset-react',
   ],
   env: {
     production: {
-      presets: ['minify'],
+      presets: [
+        'minify',
+        [
+          '@babel/preset-env',
+          {
+            modules: false,
+          },
+        ],
+      ],
     },
   },
   plugins: [

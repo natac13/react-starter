@@ -1,9 +1,9 @@
 const merge = require('webpack-merge');
 
-module.exports = env => {
+module.exports = mode => {
   return merge([
     {
-      mode: 'development',
+      mode,
       devtool: 'inline-source-map',
       devServer: {
         contentBase: './build',

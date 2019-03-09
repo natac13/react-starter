@@ -11,7 +11,3 @@ module.exports = mode => {
 
   return merge(commonConfig(mode), developmentConfig(mode));
 };
-
-// module.exports = env => {
-//   return merge(baseConfig(env), prodConfiguration(env));
-// };

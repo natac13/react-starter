@@ -111,7 +111,7 @@ module.exports = mode => {
           template: paths.template,
           filename: './index.html',
         }),
-        new CopyWebpackPlugin([{ from: '../app/static' }]),
+        new CopyWebpackPlugin([{ from: './public/static' }]),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify(mode),
         }),
