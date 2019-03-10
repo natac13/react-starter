@@ -1,14 +1,13 @@
 const webpack = require('webpack');
-const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 const paths = require('./paths');
 
-module.exports = {
+module.exports = (mode) => ({
   target: 'node',
-  mode: 'production',
+  mode,
   devtool: 'inline-source-map',
-  entry: [paths.serverEntry],
+  entry: ['@babel/polyfill', paths.serverEntry],
   output: {
     path: paths.output,
     filename: 'server.bundle.js',
@@ -18,7 +17,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        include: paths.serverFolder,
         use: [
           {
             loader: 'babel-loader',
@@ -36,4 +35,4 @@ module.exports = {
     __filename: false,
     __dirname: false,
   },
-};
+});

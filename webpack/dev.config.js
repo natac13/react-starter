@@ -1,10 +1,10 @@
 const merge = require('webpack-merge');
 
-module.exports = mode => {
+module.exports = (mode) => {
   return merge([
     {
       mode,
-      devtool: 'inline-source-map',
+      devtool: 'cheap-module-eval-source-map',
       devServer: {
         contentBase: './build',
         overlay: true,

@@ -24,6 +24,7 @@ module.exports = {
     'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
     'no-console': 'off',
     'react/jsx-filename-extension': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   env: {
     browser: true,

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+// import webpack from 'webpack';
 const merge = require('webpack-merge');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -9,7 +10,7 @@ const paths = require('./paths.js');
 
 require('dotenv').config();
 
-module.exports = mode => {
+module.exports = (mode) => {
   const isDevelopment = mode !== 'production';
   return merge([
     {
@@ -22,6 +23,9 @@ module.exports = mode => {
         publicPath: '/', // where the generated static files reside.
       },
       resolve: {
+        // alias: {
+        //   '@material-ui/core': '@material-ui/core/es',
+        // },
         extensions: [
           '*',
           '.js',
@@ -37,7 +41,7 @@ module.exports = mode => {
         rules: [
           {
             test: /\.jsx?$/,
-            exclude: /node_modules/,
+            include: paths.appFolder,
             use: [
               {
                 loader: 'babel-loader',
@@ -59,9 +63,13 @@ module.exports = mode => {
                 },
               },
               {
+                loader: 'postcss-loader',
+              },
+              {
                 loader: 'sass-loader',
                 options: {
                   sourceMap: true,
+                  filename: '[name].[contenthash:6].[ext]',
                   data: `@import "${paths.theme}";`,
                 },
               },
@@ -69,7 +77,10 @@ module.exports = mode => {
           },
           {
             test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
+            use: [
+              isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+              'css-loader',
+            ],
           },
           {
             test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -77,12 +88,22 @@ module.exports = mode => {
               loader: 'url-loader',
               options: {
                 limit: 50000,
+                name: 'fonts/[name]',
               },
             },
           },
           {
             test: /\.(jpe?g|png|gif|svg)$/i,
-            use: ['url-loader?limit=10000', 'img-loader'],
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: 10000,
+                  name: 'assets/[name].[hash:6].[ext]',
+                },
+              },
+              'image-webpack-loader',
+            ],
           },
         ],
       },
@@ -110,6 +131,7 @@ module.exports = mode => {
         new HtmlWebpackPlugin({
           template: paths.template,
           filename: './index.html',
+          favicon: './favicon.ico',
         }),
         new CopyWebpackPlugin([{ from: './public/static' }]),
         new webpack.DefinePlugin({

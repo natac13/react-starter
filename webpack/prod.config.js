@@ -8,8 +8,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
+const cssnano = require('cssnano');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
-module.exports = mode => {
+module.exports = (mode) => {
   return merge([
     {
       mode,
@@ -21,18 +25,27 @@ module.exports = mode => {
             sourceMap: true,
             extractComments: true,
           }),
-          new OptimizeCssAssetsPlugin(),
+          new OptimizeCssAssetsPlugin({
+            cssProcessor: cssnano,
+            cssProcessorOptions: {
+              discardComments: { removeAll: true },
+              safe: true,
+            },
+            canPrint: true,
+          }),
         ],
       },
       output: {
+        chunkFilename: '[name].[chunkhash:6].js',
+        filename: '[name].[chunkhash:6].js',
         publicPath: '/', // where the generated static files reside. This is the project name for gh-pages
       },
-      devtool: 'source-map',
+      devtool: 'nosources-source-map',
       plugins: [
         new CopyWebpackPlugin([
-          { from: '../package.json' },
-          { from: '../Procfile' },
-          { from: '../favicon.ico' },
+          { from: './package.json' },
+          { from: './Procfile' },
+          { from: './favicon.ico' },
         ]), // copys assets, like photos to the output folder.
         new CleanWebpackPlugin(['build']),
         new MiniCssExtractPlugin({
@@ -40,8 +53,10 @@ module.exports = mode => {
           chunkFilename: '[id].css',
         }),
         new Visualizer({ filename: './statistics.html' }),
+        new BundleAnalyzerPlugin(),
+        new DuplicatePackageCheckerPlugin({ verbose: true }),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(mode),
+          'process.env.NODE_ENV': JSON.stringify('production'),
         }),
       ],
     },

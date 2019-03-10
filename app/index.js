@@ -9,7 +9,6 @@ import App from './routes';
 import configureStore from './store';
 
 import './stylesheets/base.scss';
-import 'typeface-roboto';
 
 const store = configureStore();
 

@@ -7,4 +7,6 @@ module.exports = {
   template: path.resolve(__dirname, '../', 'public/index.html'),
   theme: path.resolve(__dirname, '../', 'app/stylesheets/theme.scss'),
   serverEntry: path.resolve(__dirname, '../', 'server/index.js'),
+  appFolder: path.resolve(__dirname, '../', 'app'),
+  serverFolder: path.resolve(__dirname, '../', 'server'),
 };
