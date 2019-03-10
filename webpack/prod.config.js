@@ -10,8 +10,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const cssnano = require('cssnano');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = (mode) => {
   return merge([

@@ -26,7 +26,7 @@ async function connectToDB(env, mongoURI) {
         pass: process.env.DB_PASS,
         useNewUrlParser: true,
       });
-      console.log('Connected on production Database');
+      console.log(chalk.cyan('Connected on production Database'));
       return connection;
     } catch (error) {
       // should record error in production
